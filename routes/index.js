@@ -26,6 +26,10 @@ const injectRoutes = (api) => {
   api.get('/disconnect', xTokenAuthenticate, AuthController.getDisconnect);
   // Route to upload a file
   api.post('/files', xTokenAuthenticate, FilesController.postUpload);
+  // Route to get a file
+  api.get('/files/:id', xTokenAuthenticate, FilesController.getShow);
+  // Route to get all files
+  api.get('/files', xTokenAuthenticate, FilesController.getIndex);
   // Route to publish a file
   api.put('/files/:id/publish', xTokenAuthenticate, FilesController.putPublish);
   // Route to unpublish a file
