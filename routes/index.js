@@ -4,6 +4,7 @@ import AppController from '../controllers/AppController';
 import UsersController from '../controllers/UsersController';
 import AuthController from '../controllers/AuthController';
 import { APIError, errorResponse } from '../middlewares/error';
+import { basicAuthenticate, xTokenAuthenticate } from '../middlewares/auth';
 
 /**
  * Injects routes with their handlers to the given Express application.
