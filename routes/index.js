@@ -4,8 +4,8 @@ import AppController from '../controllers/AppController';
 import UsersController from '../controllers/UsersController';
 import AuthController from '../controllers/AuthController';
 import FilesController from '../controllers/FilesController';
-import { APIError, errorResponse } from '../middlewares/error';
-import { basicAuthenticate, xTokenAuthenticate } from '../middlewares/auth';
+import { APIError, errorResponse } from '../middlewares/errorHandler';
+import { basicAuthenticate, xTokenAuthenticate } from '../middlewares/authMiddleware';
 
 /**
  * Injects routes with their handlers to the given Express application.
@@ -30,7 +30,7 @@ const injectRoutes = (api) => {
   api.put('/files/:id/publish', xTokenAuthenticate, FilesController.putPublish);
   // Route to unpublish a file
   api.put('/files/:id/unpublish', xTokenAuthenticate, FilesController.putUnpublish);
-// Route to get a file
+  // Route to get a file
   api.get('/files/:id/data', FilesController.getFile);
   // Route to handle all other requests with a 404 error
   api.all('*', (req, res, next) => {
