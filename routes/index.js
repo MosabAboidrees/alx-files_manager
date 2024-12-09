@@ -2,6 +2,7 @@
 import { Express } from 'express';
 import AppController from '../controllers/AppController';
 import UsersController from '../controllers/UsersController';
+import AuthController from '../controllers/AuthController';
 import { APIError, errorResponse } from '../middlewares/error';
 
 /**
@@ -15,6 +16,12 @@ const injectRoutes = (api) => {
   api.get('/stats', AppController.getStats);
   // Route to handle user registration
   api.post('/users', UsersController.postNew);
+  // Route to get the current user
+  api.get('/users/me', xTokenAuthenticate, UsersController.getMe);
+  // Route to authenticate a user
+  api.get('/connect', basicAuthenticate, AuthController.getConnect);
+  // Route to log out a user
+  api.get('/disconnect', xTokenAuthenticate, AuthController.getDisconnect);
   // Route to handle all other requests with a 404 error
   api.all('*', (req, res, next) => {
     errorResponse(new APIError(404, `Cannot ${req.method} ${req.url}`), req, res, next);
